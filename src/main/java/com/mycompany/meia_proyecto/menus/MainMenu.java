@@ -1,6 +1,5 @@
 package com.mycompany.meia_proyecto.menus;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -8,20 +7,17 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
-public class MainMenu extends JPanel {
+import com.mycompany.meia_proyecto.MainFrame;
 
-	public MainMenu() {
+public class MainMenu extends Menu {
+
+	public MainMenu(MainFrame parent) {
+		super(parent);
         this.setLayout(new GridLayout());
-        
-        
-        Border lineBorder = BorderFactory.createLineBorder(Color.black, 5);
-        this.setBorder(lineBorder);
         
         JPanel container = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -41,15 +37,19 @@ public class MainMenu extends JPanel {
         
         JButton ModelButton = new JButton("Modelo");
         ModelButton.setPreferredSize(new Dimension(width, height));
+        ModelButton.addActionListener(e -> parent.setMenu(new ModelMenu(parent)));
         
         JButton TypeButton = new JButton("Tipo");
         TypeButton.setPreferredSize(new Dimension(width, height));
+        TypeButton.addActionListener(e -> parent.setMenu(new TypeMenu(parent)));
         
         JButton LineButton = new JButton("Línea");
         LineButton.setPreferredSize(new Dimension(width, height));
+        LineButton.addActionListener(e -> parent.setMenu(new LineMenu(parent)));
         
         JButton VehicleButton = new JButton("Vehículo");
         VehicleButton.setPreferredSize(new Dimension(width, height));
+        VehicleButton.addActionListener(e -> parent.setMenu(new VehicleMenu(parent)));
         
         gbc.gridx = 1;
         gbc.gridy = 0;

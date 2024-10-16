@@ -5,9 +5,13 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.border.Border;
 
 import com.mycompany.meia_proyecto.menus.MainMenu;
+import com.mycompany.meia_proyecto.menus.Menu;
+import com.mycompany.meia_proyecto.menus.ModelMenu;
 
 public class MainFrame extends JFrame {
 
@@ -16,18 +20,27 @@ public class MainFrame extends JFrame {
 		this.setLayout(new GridBagLayout());
 		this.setResizable(false);
 		this.setTitle("Manejo E Implementación de Archivos");
-		GridBagConstraints gbc = new GridBagConstraints();
 		this.setMinimumSize(new Dimension(800, 450));
 		this.getContentPane().setBackground(Color.CYAN);
 
+		this.setMenu(new MainMenu(this));
+
+		this.setVisible(true);
+	}
+	
+	public void setMenu(Menu menu) {
+		this.getContentPane().removeAll();
+		
+		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.weightx = 0.7;
 		gbc.weighty = 1;
 
-		MainMenu mMenu = new MainMenu();
-		mMenu.setPreferredSize(new Dimension(480, 400));
-		mMenu.setMinimumSize(new Dimension(480, 400));
-		this.add(mMenu, gbc);
+		menu.setPreferredSize(new Dimension(480, 400));
+		menu.setMinimumSize(new Dimension(480, 400));
+		Border lineBorder = BorderFactory.createLineBorder(Color.black, 5);
+        menu.setBorder(lineBorder);
+		this.add(menu, gbc);
 
 		gbc.gridx = 1;
 		gbc.weightx = 0.3;
@@ -36,7 +49,7 @@ public class MainFrame extends JFrame {
 		side.setPreferredSize(new Dimension(200, 400));
 		side.setMinimumSize(new Dimension(200, 400));
 		this.add(side, gbc);
-
-		this.setVisible(true);
+		
+		this.validate();
 	}
 }

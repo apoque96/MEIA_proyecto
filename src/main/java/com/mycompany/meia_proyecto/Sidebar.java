@@ -54,6 +54,7 @@ public class Sidebar extends JPanel {
 		
 		JButton ExitButton = new JButton("Salir");
         ExitButton.setPreferredSize(new Dimension(10, 40));
+        ExitButton.addActionListener(e -> System.exit(0));
         this.add(ExitButton, BorderLayout.SOUTH);
 	}
 }
