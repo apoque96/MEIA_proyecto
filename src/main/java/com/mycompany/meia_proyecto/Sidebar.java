@@ -12,12 +12,17 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
+import com.mycompany.meia_proyecto.menus.MainMenu;
+
 public class Sidebar extends JPanel {
-	public Sidebar() {
-		initialSidebar();
+	public Sidebar(MainFrame parent, int type) {
+		if (type == 0)
+			initialSidebar();
+		else
+			returnSidebar(parent);
 	}
 	
-	public void initialSidebar() {
+	private void initialSidebar() {
 		this.setOpaque(false);
 
 		this.setLayout(new BorderLayout());
@@ -55,6 +60,17 @@ public class Sidebar extends JPanel {
 		JButton ExitButton = new JButton("Salir");
         ExitButton.setPreferredSize(new Dimension(10, 40));
         ExitButton.addActionListener(e -> System.exit(0));
+        this.add(ExitButton, BorderLayout.SOUTH);
+	}
+	
+	private void returnSidebar(MainFrame parent) {
+		this.setOpaque(false);
+
+		this.setLayout(new BorderLayout());
+		
+		JButton ExitButton = new JButton("Regresar");
+        ExitButton.setPreferredSize(new Dimension(10, 40));
+		ExitButton.addActionListener(e -> parent.setMenu(new MainMenu(parent), 0));
         this.add(ExitButton, BorderLayout.SOUTH);
 	}
 }

@@ -23,12 +23,12 @@ public class MainFrame extends JFrame {
 		this.setMinimumSize(new Dimension(800, 450));
 		this.getContentPane().setBackground(Color.CYAN);
 
-		this.setMenu(new MainMenu(this));
+		this.setMenu(new MainMenu(this), 0);
 
 		this.setVisible(true);
 	}
 	
-	public void setMenu(Menu menu) {
+	public void setMenu(Menu menu, int sideBarType) {
 		this.getContentPane().removeAll();
 		
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -45,7 +45,7 @@ public class MainFrame extends JFrame {
 		gbc.gridx = 1;
 		gbc.weightx = 0.3;
 
-		Sidebar side = new Sidebar();
+		Sidebar side = new Sidebar(this, sideBarType);
 		side.setPreferredSize(new Dimension(200, 400));
 		side.setMinimumSize(new Dimension(200, 400));
 		this.add(side, gbc);
