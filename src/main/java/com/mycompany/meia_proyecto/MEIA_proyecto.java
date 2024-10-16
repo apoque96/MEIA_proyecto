@@ -11,6 +11,6 @@ package com.mycompany.meia_proyecto;
 public class MEIA_proyecto {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+    	new MainFrame();
     }
 }
