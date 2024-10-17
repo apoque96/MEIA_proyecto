@@ -2,7 +2,6 @@ package com.mycompany.meia_proyecto.menus;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
