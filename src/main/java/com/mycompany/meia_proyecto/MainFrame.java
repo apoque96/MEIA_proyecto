@@ -11,7 +11,6 @@ import javax.swing.border.Border;
 
 import com.mycompany.meia_proyecto.menus.MainMenu;
 import com.mycompany.meia_proyecto.menus.Menu;
-import com.mycompany.meia_proyecto.menus.ModelMenu;
 
 public class MainFrame extends JFrame {
 
