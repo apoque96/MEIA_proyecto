@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3e675a33-ea54-4610-84ba-556d7903c524" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Registro_Vehiculos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Registro_Vehiculos.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lineas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lineas.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/marcas_vehiculos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/marcas_vehiculos.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/LineMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/LineMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/ModelMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/ModelMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/TypeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/TypeMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/VehicleMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/VehicleMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types.txt" beforeDir="false" afterPath="$PROJECT_DIR$/types.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="menus" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2ntYmR87wufnVbRJcbn82FVO0ef" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Unnamed.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/Landivar/Semestre 4/Manejo e implementación de archivos/MEIA_proyecto",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.mycompany.meia_proyecto.MEIA_proyecto" />
+      <module name="MEIA_proyecto" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3e675a33-ea54-4610-84ba-556d7903c524" name="Changes" comment="" />
+      <created>1729794000971</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1729794000971</updated>
+      <workItem from="1729794005050" duration="28000" />
+      <workItem from="1729917045744" duration="92000" />
+      <workItem from="1729923317137" duration="56000" />
+      <workItem from="1730000775043" duration="120000" />
+      <workItem from="1730334769841" duration="12678000" />
+      <workItem from="1730381382581" duration="7051000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
