@@ -4,11 +4,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BoxLayout;
@@ -22,6 +18,8 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 import com.mycompany.meia_proyecto.MainFrame;
+import com.mycompany.meia_proyecto.classes.FileManager;
+import com.mycompany.meia_proyecto.classes.Model;
 
 public class ModelMenu extends Menu {
     
@@ -72,6 +70,7 @@ public class ModelMenu extends Menu {
                 String marca = tModel.getText().trim();
                 String year = tYear.getText().trim();
                 String fundador = tFounder.getText().trim();
+                Model model = new Model(marca, year, fundador);
 
                 // Validar que los campos no estén vacíos
                 if (marca.isEmpty() || year.isEmpty() || fundador.isEmpty()) {
@@ -90,11 +89,7 @@ public class ModelMenu extends Menu {
 
                 // Guardar la información en un archivo .txt
                 try {
-                    BufferedWriter writer = new BufferedWriter(new FileWriter("marcas_vehiculos.txt", true));
-                    writer.write("Marca: " + marca + ", Año: " + year + ", Fundador: " + fundador);
-                    writer.newLine();
-                    writer.close();
-                    JOptionPane.showMessageDialog(null, "Marca guardada exitosamente.");
+                    FileManager.saveToFile("marcas_vehiculos.txt", model);
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "Error al guardar en el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -149,6 +144,7 @@ public class ModelMenu extends Menu {
                 String marca = tModel.getText().trim();
                 String year = tYear.getText().trim();
                 String fundador = tFounder.getText().trim();
+                Model model = new Model(marca, year, fundador);
 
                 // Validar que los campos no estén vacíos
                 if (marca.isEmpty() || year.isEmpty() || fundador.isEmpty()) {
@@ -157,38 +153,7 @@ public class ModelMenu extends Menu {
                 }
 
                 try {
-                    // Leer todas las líneas del archivo
-                    List<String> lines = new ArrayList<>();
-                    BufferedWriter writer = null;
-                    boolean found = false;
-
-                    // Lee el archivo existente
-                    BufferedReader reader = new BufferedReader(new FileReader("marcas_vehiculos.txt"));
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        if (line.contains("Marca: " + marca)) {
-                            // Si encontramos la marca, la reemplazamos
-                            lines.add("Marca: " + marca + ", Año: " + year + ", Fundador: " + fundador);
-                            found = true;
-                        } else {
-                            lines.add(line);
-                        }
-                    }
-                    reader.close();
-
-                    if (found) {
-                        // Sobrescribimos el archivo con los datos actualizados
-                        writer = new BufferedWriter(new FileWriter("marcas_vehiculos.txt", false));
-                        for (String updatedLine : lines) {
-                            writer.write(updatedLine);
-                            writer.newLine();
-                        }
-                        writer.close();
-                        JOptionPane.showMessageDialog(null, "Marca actualizada exitosamente.");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Marca no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-
+                    FileManager.updateToFile("marcas_vehiculos.txt", model);
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "Error al actualizar en el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -252,28 +217,7 @@ private JPanel delete() {
 
             // Eliminar la marca del archivo .txt
             try {
-                // Leer todo el contenido del archivo
-                List<String> lines = new ArrayList<>();
-                BufferedReader reader = new BufferedReader(new FileReader("marcas_vehiculos.txt"));
-                String currentLine;
-
-                while ((currentLine = reader.readLine()) != null) {
-                    // Si la línea no contiene la marca a eliminar, la guardamos
-                    if (!currentLine.contains("Marca: " + marca + ",")) {
-                        lines.add(currentLine);
-                    }
-                }
-                reader.close();
-
-                // Reescribir el archivo con las líneas actualizadas (sin la marca eliminada)
-                BufferedWriter writer = new BufferedWriter(new FileWriter("marcas_vehiculos.txt"));
-                for (String line : lines) {
-                    writer.write(line);
-                    writer.newLine();
-                }
-                writer.close();
-
-                JOptionPane.showMessageDialog(null, "Marca eliminada exitosamente.");
+                FileManager.deleteFromFile("marcas_vehiculos.txt", marca);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Error al eliminar en el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -290,61 +234,6 @@ private JPanel delete() {
 
     return panel;
 }
-
-    private void saveToFile(String type, String year) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("marcas_vehiculos.txt", true))) {
-            writer.write(type + "," + year);
-            writer.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void updateFile(String type, String year) {
-        try {
-            ArrayList<String> updatedList = new ArrayList<>();
-            try (BufferedReader reader = new BufferedReader(new FileReader("marcas_vehiculos.txt"))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    if (line.startsWith(type + ",")) {
-                        updatedList.add(type + "," + year);
-                    } else {
-                        updatedList.add(line);
-                    }
-                }
-            }
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("marcas_vehiculos.txt"))) {
-                for (String record : updatedList) {
-                    writer.write(record);
-                    writer.newLine();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void deleteFromFile(String type) {
-        try {
-            ArrayList<String> updatedList = new ArrayList<>();
-            try (BufferedReader reader = new BufferedReader(new FileReader("marcas_vehiculos.txt"))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    if (!line.startsWith(type + ",")) {
-                        updatedList.add(line);
-                    }
-                }
-            }
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("marcas_vehiculos.txt"))) {
-                for (String record : updatedList) {
-                    writer.write(record);
-                    writer.newLine();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 private void loadMarcasFromFile() {

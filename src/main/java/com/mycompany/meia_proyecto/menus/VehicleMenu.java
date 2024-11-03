@@ -2,13 +2,8 @@ package com.mycompany.meia_proyecto.menus;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,10 +13,10 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JOptionPane;
+
 import com.mycompany.meia_proyecto.MainFrame;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import com.mycompany.meia_proyecto.classes.FileManager;
+import com.mycompany.meia_proyecto.classes.Vehicle;
 
 public class VehicleMenu extends Menu {
     private final ArrayList<String> marcasList = new ArrayList<>();
@@ -73,12 +68,11 @@ public class VehicleMenu extends Menu {
             String tipo = (String) tType.getSelectedItem();
             String descripcion = tDescription.getText();
             String placa = tPlate.getText();
+            Vehicle vehicle = new Vehicle(marca, tipo, descripcion, placa);
 
-            // Guardar en el archivo
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(registroFilePath, true))) {
-                writer.write(marca + "," + tipo + "," + descripcion + "," + placa);
-                writer.newLine();
-                JOptionPane.showMessageDialog(panel, "Vehículo guardado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                FileManager.saveToFile(registroFilePath, vehicle);
+
                 tDescription.setText("");
                 tPlate.setText("");
             } catch (IOException ex) {
@@ -100,79 +94,62 @@ public class VehicleMenu extends Menu {
         return panel;
     }
 
-private JPanel column_Actualizar(String txt) {
-    Border tMargin = new EmptyBorder(30, 0, 0, 0);
-    JPanel panel = new JPanel();
-    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    private JPanel column_Actualizar(String txt) {
+        Border tMargin = new EmptyBorder(30, 0, 0, 0);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-    JLabel title = new JLabel(txt);
-    title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
+        JLabel title = new JLabel(txt);
+        title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
 
-    JLabel lModel = new JLabel("Marca");
-    JComboBox<String> tModel = new JComboBox<>(marcasList.toArray(new String[0]));
-    lModel.setBorder(new CompoundBorder(lModel.getBorder(), tMargin));
+        JLabel lModel = new JLabel("Marca");
+        JComboBox<String> tModel = new JComboBox<>(marcasList.toArray(new String[0]));
+        lModel.setBorder(new CompoundBorder(lModel.getBorder(), tMargin));
 
-    JLabel lType = new JLabel("Tipo de auto");
-    JComboBox<String> tType = new JComboBox<>(tiposList.toArray(new String[0]));
-    lType.setBorder(new CompoundBorder(lType.getBorder(), tMargin));
+        JLabel lType = new JLabel("Tipo de auto");
+        JComboBox<String> tType = new JComboBox<>(tiposList.toArray(new String[0]));
+        lType.setBorder(new CompoundBorder(lType.getBorder(), tMargin));
 
-    JLabel lDescription = new JLabel("Nueva Descripción");
-    JTextField tDescription = new JTextField();
-    lDescription.setBorder(new CompoundBorder(lDescription.getBorder(), tMargin));
+        JLabel lDescription = new JLabel("Nueva Descripción");
+        JTextField tDescription = new JTextField();
+        lDescription.setBorder(new CompoundBorder(lDescription.getBorder(), tMargin));
 
-    JLabel lPlate = new JLabel("Placa");
-    JTextField tPlate = new JTextField();
-    lPlate.setBorder(new CompoundBorder(lPlate.getBorder(), tMargin));
+        JLabel lPlate = new JLabel("Placa");
+        JTextField tPlate = new JTextField();
+        lPlate.setBorder(new CompoundBorder(lPlate.getBorder(), tMargin));
 
-    JButton update = new JButton("Actualizar");
-    update.addActionListener(e -> {
-        String marca = (String) tModel.getSelectedItem();
-        String tipo = (String) tType.getSelectedItem();
-        String descripcion = tDescription.getText();
-        String placa = tPlate.getText();
+        JButton update = new JButton("Actualizar");
+        update.addActionListener(e -> {
+            String marca = (String) tModel.getSelectedItem();
+            String tipo = (String) tType.getSelectedItem();
+            String descripcion = tDescription.getText();
+            String placa = tPlate.getText();
+            Vehicle vehicle = new Vehicle(marca, tipo, descripcion, placa);
 
-        // Leer las líneas existentes y actualizar
-        try {
-            List<String> lines = Files.readAllLines(Paths.get(registroFilePath));
-            boolean found = false;
+            // Leer las líneas existentes y actualizar
+            try {
+                FileManager.updateToFile(registroFilePath, vehicle);
 
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(registroFilePath))) {
-                for (String line : lines) {
-                    if (line.contains(placa)) {
-                        line = marca + "," + tipo + "," + descripcion + "," + placa;
-                        found = true;
-                    }
-                    writer.write(line);
-                    writer.newLine();
-                }
-
-                if (!found) {
-                    JOptionPane.showMessageDialog(panel, "La placa no fue encontrada para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(panel, "Vehículo actualizado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                }
+                tDescription.setText("");
+                tPlate.setText("");
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
+        });
 
-            tDescription.setText("");
-            tPlate.setText("");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    });
+        panel.add(title);
+        panel.add(lModel);
+        panel.add(tModel);
+        panel.add(lType);
+        panel.add(tType);
+        panel.add(lDescription);
+        panel.add(tDescription);
+        panel.add(lPlate);
+        panel.add(tPlate);
+        panel.add(update);
 
-    panel.add(title);
-    panel.add(lModel);
-    panel.add(tModel);
-    panel.add(lType);
-    panel.add(tType);
-    panel.add(lDescription);
-    panel.add(tDescription);
-    panel.add(lPlate);
-    panel.add(tPlate);
-    panel.add(update);
-
-    return panel;
-}
+        return panel;
+    }
 
     private JPanel delete() {
         Border tMargin = new EmptyBorder(30, 0, 0, 0);
@@ -192,16 +169,7 @@ private JPanel column_Actualizar(String txt) {
 
             // Leer las líneas existentes y eliminar
             try {
-                List<String> lines = Files.readAllLines(Paths.get(registroFilePath));
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(registroFilePath))) {
-                    for (String line : lines) {
-                        if (!line.contains(placa)) {
-                            writer.write(line);
-                            writer.newLine();
-                        }
-                    }
-                }
-                JOptionPane.showMessageDialog(panel, "Vehículo eliminado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                FileManager.deleteFromFile(registroFilePath, placa);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

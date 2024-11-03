@@ -15,7 +15,11 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+
 import com.mycompany.meia_proyecto.MainFrame;
+import com.mycompany.meia_proyecto.classes.FileManager;
+import com.mycompany.meia_proyecto.classes.Line;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
@@ -30,7 +34,7 @@ import javax.swing.*;
 
 
 public class LineMenu extends Menu {
-    
+
     private final ArrayList<String> marcasList = new ArrayList<>();
     private final String filePath = "marcas_vehiculos.txt";
 
@@ -45,208 +49,171 @@ public class LineMenu extends Menu {
         this.add(delete());
     }
 
-private JPanel column_Grabar(String txt) {
-    Border tMargin = new EmptyBorder(30, 0, 0, 0);
-    JPanel panel = new JPanel();
-    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    private JPanel column_Grabar(String txt) {
+        Border tMargin = new EmptyBorder(30, 0, 0, 0);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-    JLabel title = new JLabel(txt);
-    title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
+        JLabel title = new JLabel(txt);
+        title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
 
-    JLabel lModel = new JLabel("Marca");
-    JComboBox<String> tModel = new JComboBox<>(marcasList.toArray(new String[0]));
-    lModel.setBorder(new CompoundBorder(lModel.getBorder(), tMargin));
-    tModel.setPreferredSize(new Dimension(100, 20));
+        JLabel lModel = new JLabel("Marca");
+        JComboBox<String> tModel = new JComboBox<>(marcasList.toArray(new String[0]));
+        lModel.setBorder(new CompoundBorder(lModel.getBorder(), tMargin));
+        tModel.setPreferredSize(new Dimension(100, 20));
 
-    JLabel lDescription = new JLabel("Descripción");
-    JTextField tDescription = new JTextField();
-    lDescription.setBorder(new CompoundBorder(lDescription.getBorder(), tMargin));
+        JLabel lDescription = new JLabel("Descripción");
+        JTextField tDescription = new JTextField();
+        lDescription.setBorder(new CompoundBorder(lDescription.getBorder(), tMargin));
 
-    JLabel lYear = new JLabel("Año");
-    JTextField tYear = new JTextField();
-    lYear.setBorder(new CompoundBorder(lYear.getBorder(), tMargin));
+        JLabel lYear = new JLabel("Año");
+        JTextField tYear = new JTextField();
+        lYear.setBorder(new CompoundBorder(lYear.getBorder(), tMargin));
 
-    JButton save = new JButton("Guardar");
+        JButton save = new JButton("Guardar");
 
-    // ActionListener para guardar la línea en el archivo
-    save.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String marca = (String) tModel.getSelectedItem();
-            String descripcion = tDescription.getText();
-            String año = tYear.getText();
+        // ActionListener para guardar la línea en el archivo
+        save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String marca = (String) tModel.getSelectedItem();
+                String descripcion = tDescription.getText();
+                String año = tYear.getText();
+                Line line = new Line(marca, descripcion, año);
 
-            // Verificar si ya existe la marca
-            if (marcaYaRegistrada(marca)) {
-                JOptionPane.showMessageDialog(panel, "La marca ya está registrada. No se pueden duplicar marcas.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Guardar en el archivo
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("lineas.txt", true))) {
-                writer.write("Marca: " + marca + ", Descripción: " + descripcion + ", Año: " + año);
-                writer.newLine();
-                tDescription.setText("");
-                tYear.setText("");
-
-                // Mensaje emergente de éxito
-                JOptionPane.showMessageDialog(panel, "Marca guardada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-    });
-
-    panel.add(title);
-    panel.add(lModel);
-    panel.add(tModel);
-    panel.add(lDescription);
-    panel.add(tDescription);
-    panel.add(lYear);
-    panel.add(tYear);
-    panel.add(save);
-
-    return panel;
-}
-
-private JPanel column_Actualizar(String txt) {
-    Border tMargin = new EmptyBorder(30, 0, 0, 0);
-    JPanel panel = new JPanel();
-    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
-    JLabel title = new JLabel(txt);
-    title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
-
-    JLabel lModel = new JLabel("Marca");
-    JComboBox<String> tModel = new JComboBox<>(marcasList.toArray(new String[0]));
-    lModel.setBorder(new CompoundBorder(lModel.getBorder(), tMargin));
-    tModel.setPreferredSize(new Dimension(100, 20));
-
-    JLabel lDescription = new JLabel("Nueva Descripción");
-    JTextField tDescription = new JTextField();
-    lDescription.setBorder(new CompoundBorder(lDescription.getBorder(), tMargin));
-
-    JLabel lYear = new JLabel("Nuevo Año");
-    JTextField tYear = new JTextField();
-    lYear.setBorder(new CompoundBorder(lYear.getBorder(), tMargin));
-
-    JButton update = new JButton("Actualizar");
-
-    // ActionListener para actualizar la línea en el archivo
-    update.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String marca = (String) tModel.getSelectedItem();
-            String descripcion = tDescription.getText();
-            String año = tYear.getText();
-
-            // Leer las líneas existentes y actualizar
-            try {
-                List<String> lines = Files.readAllLines(Paths.get("lineas.txt"));
-                boolean found = false;
-
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("lineas.txt"))) {
-                    for (String line : lines) {
-                        if (line.contains("Marca: " + marca)) {
-                            line = "Marca: " + marca + ", Descripción: " + descripcion + ", Año: " + año;
-                            found = true;
-                        }
-                        writer.write(line);
-                        writer.newLine();
-                    }
-
-                    if (!found) {
-                        JOptionPane.showMessageDialog(panel, "La marca no fue encontrada para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        // Mensaje emergente de éxito
-                        JOptionPane.showMessageDialog(panel, "Marca actualizada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    }
+                // Verificar si ya existe la marca
+                if (marcaYaRegistrada(marca)) {
+                    JOptionPane.showMessageDialog(panel, "La marca ya está registrada. No se pueden duplicar marcas.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
 
-                tDescription.setText("");
-                tYear.setText("");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-    });
 
-    panel.add(title);
-    panel.add(lModel);
-    panel.add(tModel);
-    panel.add(lDescription);
-    panel.add(tDescription);
-    panel.add(lYear);
-    panel.add(tYear);
-    panel.add(update);
+                // Guardar en el archivo
+                try {
+                    FileManager.saveToFile("lineas.txt", line);
 
-    return panel;
-}
-
-private JPanel delete() {
-    Border tMargin = new EmptyBorder(30, 0, 0, 0);
-    JPanel panel = new JPanel();
-    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
-    JLabel title = new JLabel("Eliminar");
-    title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
-
-    JLabel lModel = new JLabel("Marca");
-    JComboBox<String> tModel = new JComboBox<>(marcasList.toArray(new String[0]));
-    lModel.setBorder(new CompoundBorder(lModel.getBorder(), tMargin));
-    tModel.setPreferredSize(new Dimension(100, 20));
-
-    JButton delete = new JButton("Eliminar");
-
-    // ActionListener para eliminar la línea en el archivo
-    delete.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String marca = (String) tModel.getSelectedItem();
-
-            // Leer las líneas existentes y eliminar
-            try {
-                List<String> lines = Files.readAllLines(Paths.get("lineas.txt"));
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("lineas.txt"))) {
-                    for (String line : lines) {
-                        if (!line.contains("Marca: " + marca)) {
-                            writer.write(line);
-                            writer.newLine();
-                        }
-                    }
+                    tDescription.setText("");
+                    tYear.setText("");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
-                JOptionPane.showMessageDialog(panel, "Marca eliminada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            } catch (IOException ex) {
-                ex.printStackTrace();
             }
-        }
-        
-               
-                
-    });
+        });
 
-    panel.add(title);
-    panel.add(lModel);
-    panel.add(tModel);
-    panel.add(delete);
+        panel.add(title);
+        panel.add(lModel);
+        panel.add(tModel);
+        panel.add(lDescription);
+        panel.add(tDescription);
+        panel.add(lYear);
+        panel.add(tYear);
+        panel.add(save);
 
-    return panel;
-}
-
-// Método para verificar si la marca ya está registrada
-private boolean marcaYaRegistrada(String marca) {
-    try {
-        List<String> lines = Files.readAllLines(Paths.get("lineas.txt"));
-        for (String line : lines) {
-            if (line.contains("Marca: " + marca)) {
-                return true;
-            }
-        }
-    } catch (IOException ex) {
-        ex.printStackTrace();
+        return panel;
     }
-    return false;
-}
+
+    private JPanel column_Actualizar(String txt) {
+        Border tMargin = new EmptyBorder(30, 0, 0, 0);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel title = new JLabel(txt);
+        title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
+
+        JLabel lModel = new JLabel("Marca");
+        JComboBox<String> tModel = new JComboBox<>(marcasList.toArray(new String[0]));
+        lModel.setBorder(new CompoundBorder(lModel.getBorder(), tMargin));
+        tModel.setPreferredSize(new Dimension(100, 20));
+
+        JLabel lDescription = new JLabel("Nueva Descripción");
+        JTextField tDescription = new JTextField();
+        lDescription.setBorder(new CompoundBorder(lDescription.getBorder(), tMargin));
+
+        JLabel lYear = new JLabel("Nuevo Año");
+        JTextField tYear = new JTextField();
+        lYear.setBorder(new CompoundBorder(lYear.getBorder(), tMargin));
+
+        JButton update = new JButton("Actualizar");
+
+        // ActionListener para actualizar la línea en el archivo
+        update.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String marca = (String) tModel.getSelectedItem();
+                String descripcion = tDescription.getText();
+                String año = tYear.getText();
+                Line line = new Line(marca, descripcion, año);
+
+                // Leer las líneas existentes y actualizar
+                try {
+                    FileManager.updateToFile("lineas.txt", line);
+
+                    tDescription.setText("");
+                    tYear.setText("");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        panel.add(title);
+        panel.add(lModel);
+        panel.add(tModel);
+        panel.add(lDescription);
+        panel.add(tDescription);
+        panel.add(lYear);
+        panel.add(tYear);
+        panel.add(update);
+
+        return panel;
+    }
+
+    private JPanel delete() {
+        Border tMargin = new EmptyBorder(30, 0, 0, 0);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel title = new JLabel("Eliminar");
+        title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
+
+        JLabel lModel = new JLabel("Marca");
+        JComboBox<String> tModel = new JComboBox<>(marcasList.toArray(new String[0]));
+        lModel.setBorder(new CompoundBorder(lModel.getBorder(), tMargin));
+        tModel.setPreferredSize(new Dimension(100, 20));
+
+        JButton delete = new JButton("Eliminar");
+
+        // ActionListener para eliminar la línea en el archivo
+        delete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String marca = (String) tModel.getSelectedItem();
+
+                try {
+                    FileManager.deleteFromFile("lineas.txt", marca);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        panel.add(title);
+        panel.add(lModel);
+        panel.add(tModel);
+        panel.add(delete);
+
+        return panel;
+    }
+
+    // Método para verificar si la marca ya está registrada
+    private boolean marcaYaRegistrada(String marca) {
+        try {
+            return FileManager.fileContainsPK("lineas.txt", marca);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
 
     private void loadMarcasFromFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -260,6 +227,6 @@ private boolean marcaYaRegistrada(String marca) {
             e.printStackTrace();
         }
     }
-    
-    
+
+
 }
