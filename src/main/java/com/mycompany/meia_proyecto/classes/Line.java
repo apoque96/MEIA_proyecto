@@ -2,8 +2,8 @@ package com.mycompany.meia_proyecto.classes;
 
 public class Line extends Maintenance {
     private final String model;
-    private String description;
-    private String year;
+    public String description;
+    public String year;
 
     public Line(String model, String description, String year) {
         this.model = model;
@@ -14,11 +14,6 @@ public class Line extends Maintenance {
     @Override
     public String getPk() {
         return this.model + "_" + this.description;
-    }
-
-    @Override
-    public String getPKNameType() {
-        return "Modelo";
     }
 
     @Override

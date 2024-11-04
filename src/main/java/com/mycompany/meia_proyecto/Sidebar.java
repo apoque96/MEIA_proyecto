@@ -4,14 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
+import com.mycompany.meia_proyecto.classes.FileManager;
 import com.mycompany.meia_proyecto.menus.MainMenu;
 
 public class Sidebar extends JPanel {
@@ -29,6 +27,9 @@ public class Sidebar extends JPanel {
 		JPanel top = new JPanel();
 		top.setOpaque(false);
 		top.setLayout(new BoxLayout(top, BoxLayout.Y_AXIS));
+		JPanel bottom = new JPanel();
+		bottom.setOpaque(false);
+		bottom.setLayout(new BoxLayout(bottom, BoxLayout.Y_AXIS));
 
 		Border margin = new EmptyBorder(30, 0, 10, 0);
 		JLabel title = new JLabel("Venta Automotriz");
@@ -56,11 +57,24 @@ public class Sidebar extends JPanel {
 		top.add(paula);
 
 		this.add(top, BorderLayout.NORTH);
-		
+
+
+		margin = new EmptyBorder(100, 0, 100, 0);
 		JButton ExitButton = new JButton("Salir");
-        ExitButton.setPreferredSize(new Dimension(10, 40));
+        ExitButton.setPreferredSize(new Dimension(90, 40));
         ExitButton.addActionListener(e -> System.exit(0));
-        this.add(ExitButton, BorderLayout.SOUTH);
+		ExitButton.setBorder(new CompoundBorder(ExitButton.getBorder(), margin));
+		ExitButton.setVerticalAlignment(SwingConstants.CENTER);
+        bottom.add(ExitButton);
+
+		JButton ReportButton = new JButton("Reporte");
+		ReportButton.setVerticalAlignment(SwingConstants.CENTER);
+		ReportButton.setPreferredSize(new Dimension(90, 40));
+		ReportButton.addActionListener(e -> FileManager.exportToExcel());
+		ReportButton.setBorder(new CompoundBorder(ReportButton.getBorder(), margin));
+		bottom.add(ReportButton);
+
+		this.add(bottom, BorderLayout.SOUTH);
 	}
 	
 	private void returnSidebar(MainFrame parent) {

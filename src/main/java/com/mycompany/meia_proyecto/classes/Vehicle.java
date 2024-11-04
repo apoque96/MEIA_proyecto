@@ -2,9 +2,9 @@ package com.mycompany.meia_proyecto.classes;
 
 public class Vehicle extends Maintenance {
     private final String plate;
-    private String model;
-    private String type;
-    private String description;
+    public String model;
+    public String type;
+    public String description;
 
     public Vehicle(String model, String type, String description, String plate) {
         this.model = model;
@@ -16,11 +16,6 @@ public class Vehicle extends Maintenance {
     @Override
     public String getPk() {
         return this.plate;
-    }
-
-    @Override
-    public String getPKNameType() {
-        return "Placa";
     }
 
     @Override
