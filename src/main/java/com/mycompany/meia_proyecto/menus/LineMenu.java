@@ -220,7 +220,7 @@ public class LineMenu extends Menu {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(","); // Separa por coma
-                String marca = parts[0].split(":")[1].trim(); // Extrae la marca
+                String marca = parts[0]; // Extrae la marca
                 marcasList.add(marca); // Agrega solo la marca a la lista
             }
         } catch (IOException e) {

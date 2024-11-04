@@ -5,14 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e675a33-ea54-4610-84ba-556d7903c524" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Registro_Vehiculos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Registro_Vehiculos.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lineas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lineas.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Registro_Vehiculos_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Registro_Vehiculos_index.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/marcas_vehiculos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/marcas_vehiculos.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/LineMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/LineMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/ModelMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/ModelMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/TypeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/TypeMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/VehicleMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/VehicleMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/marcas_vehiculos_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/marcas_vehiculos_index.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/Sidebar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/Sidebar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/FileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Line.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Maintenance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Maintenance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Type.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Vehicle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/types.txt" beforeDir="false" afterPath="$PROJECT_DIR$/types.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/types_index.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,9 +55,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Unnamed.executor": "Run",
+    "Application.Unnamed.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "fase2",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "F:/Landivar/Semestre 4/Manejo e implementación de archivos/MEIA_proyecto",
     "node.js.detected.package.eslint": "true",
@@ -102,11 +109,38 @@
       <workItem from="1729923317137" duration="56000" />
       <workItem from="1730000775043" duration="120000" />
       <workItem from="1730334769841" duration="12678000" />
-      <workItem from="1730381382581" duration="7051000" />
+      <workItem from="1730381382581" duration="12695000" />
+      <workItem from="1730589704857" duration="679000" />
+      <workItem from="1730603174502" duration="3000" />
+      <workItem from="1730607369266" duration="26000" />
+      <workItem from="1730670801521" duration="1014000" />
+      <workItem from="1730731161636" duration="4361000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/LineMenu.java</url>
+          <line>220</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
