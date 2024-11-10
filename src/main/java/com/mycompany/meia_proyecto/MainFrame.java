@@ -19,7 +19,7 @@ public class MainFrame extends JFrame {
 		this.setLayout(new GridBagLayout());
 		this.setResizable(false);
 		this.setTitle("Manejo E Implementación de Archivos");
-		this.setMinimumSize(new Dimension(800, 450));
+		this.setMinimumSize(new Dimension(960, 540));
 		this.getContentPane().setBackground(Color.CYAN);
 
 		this.setMenu(new MainMenu(this), 0);
@@ -35,8 +35,8 @@ public class MainFrame extends JFrame {
 		gbc.weightx = 0.7;
 		gbc.weighty = 1;
 
-		menu.setPreferredSize(new Dimension(480, 400));
-		menu.setMinimumSize(new Dimension(480, 400));
+		menu.setPreferredSize(new Dimension(550, 500));
+		menu.setMinimumSize(new Dimension(550, 500));
 		Border lineBorder = BorderFactory.createLineBorder(Color.black, 5);
         menu.setBorder(lineBorder);
 		this.add(menu, gbc);
@@ -45,8 +45,8 @@ public class MainFrame extends JFrame {
 		gbc.weightx = 0.3;
 
 		Sidebar side = new Sidebar(this, sideBarType);
-		side.setPreferredSize(new Dimension(200, 400));
-		side.setMinimumSize(new Dimension(200, 400));
+		side.setPreferredSize(new Dimension(300, 500));
+		side.setMinimumSize(new Dimension(300, 500));
 		this.add(side, gbc);
 		
 		this.validate();

@@ -35,6 +35,7 @@ public class TypeMenu extends Menu {
         this.add(column_Grabar("Grabar"));
         this.add(column_Actualizar("Actualizar"));
         this.add(delete());
+        this.add(search());
     }
 
     private JPanel column_Grabar(String txt) {
@@ -114,6 +115,10 @@ public class TypeMenu extends Menu {
             if (!type.isEmpty() && !year.isEmpty() && typesList.contains(type)) {
                 try {
                     FileManager.updateToFile(filePath, object);
+                    JOptionPane.showMessageDialog(null,
+                            "Tipo actualizado exitosamente.",
+                            "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
                 } catch (IOException error) {
                     error.printStackTrace();
                 }
@@ -156,6 +161,52 @@ public class TypeMenu extends Menu {
                 typesList.remove(type);
                 try {
                     FileManager.deleteFromFile(filePath, type);
+                    JOptionPane.showMessageDialog(null,
+                            "Tipo eliminado exitosamente.",
+                            "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException error) {
+                    error.printStackTrace();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un tipo de auto existente"); // Mensaje de error
+            }
+
+            // Limpiar el campo de texto
+            tType.setText("");
+
+        });
+
+        panel.add(title);
+        panel.add(lType);
+        panel.add(tType);
+        panel.add(delete);
+
+        return panel;
+    }
+
+    private JPanel search() {
+        Border tMargin = new EmptyBorder(30, 0, 0, 0);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel title = new JLabel("Buscar");
+        title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
+
+        JLabel lType = new JLabel("Tipo de auto");
+        JTextField tType = new JTextField();
+        lType.setBorder(new CompoundBorder(lType.getBorder(), tMargin));
+        tType.setPreferredSize(new Dimension(100, 20));
+
+        JButton delete = new JButton("Buscar");
+        delete.addActionListener(e -> {
+            String type = tType.getText();
+            if (!type.isEmpty() && typesList.contains(type)) {
+                try {
+                    var data = FileManager.retrieveDataByPK(type, filePath);
+                    JOptionPane.showMessageDialog(null,
+                            data,
+                            "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException error) {
                     error.printStackTrace();
                 }

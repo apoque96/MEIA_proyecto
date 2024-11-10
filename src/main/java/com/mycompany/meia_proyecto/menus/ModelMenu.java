@@ -36,6 +36,7 @@ public class ModelMenu extends Menu {
         this.add(column("Grabar"));
         this.add(column_Actualizar("Actualizar"));
         this.add(delete());
+        this.add(search());
     }
 
     private JPanel column(String txt) {
@@ -50,7 +51,7 @@ public class ModelMenu extends Menu {
         JLabel lModel = new JLabel("Marca");
         JTextField tModel = new JTextField();
         lModel.setBorder(new CompoundBorder(lModel.getBorder(), tMargin));
-        tModel.setPreferredSize(new Dimension(100, 20));
+        tModel.setPreferredSize(new Dimension(70, 20));
 
         JLabel lYear = new JLabel("Año");
         JTextField tYear = new JTextField();
@@ -125,7 +126,7 @@ public class ModelMenu extends Menu {
         JLabel lModel = new JLabel("Marca");
         JTextField tModel = new JTextField();
         lModel.setBorder(new CompoundBorder(lModel.getBorder(), tMargin));
-        tModel.setPreferredSize(new Dimension(100, 20));
+        tModel.setPreferredSize(new Dimension(70, 20));
 
         JLabel lYear = new JLabel("Año");
         JTextField tYear = new JTextField();
@@ -154,6 +155,9 @@ public class ModelMenu extends Menu {
 
                 try {
                     FileManager.updateToFile("marcas_vehiculos.txt", model);
+                    JOptionPane.showMessageDialog(null, "Modelo actualizado exitosamente.",
+                            "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "Error al actualizar en el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -189,7 +193,7 @@ private JPanel delete() {
     JLabel lModel = new JLabel("Marca");
     JTextField tModel = new JTextField();
     lModel.setBorder(new CompoundBorder(lModel.getBorder(), tMargin));
-    tModel.setPreferredSize(new Dimension(100, 20));
+    tModel.setPreferredSize(new Dimension(70, 20));
 
     // Botón para eliminar
     JButton delete = new JButton("Eliminar");
@@ -218,6 +222,9 @@ private JPanel delete() {
             // Eliminar la marca del archivo .txt
             try {
                 FileManager.deleteFromFile("marcas_vehiculos.txt", marca);
+                JOptionPane.showMessageDialog(null, "Marca eliminada exitosamente.",
+                        "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Error al eliminar en el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -234,6 +241,57 @@ private JPanel delete() {
 
     return panel;
 }
+
+    private JPanel search() {
+        Border tMargin = new EmptyBorder(30, 0, 0, 0);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel title = new JLabel("Buscar");
+        title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
+
+        JLabel lModel = new JLabel("Marca");
+        JTextField tModel = new JTextField();
+        lModel.setBorder(new CompoundBorder(lModel.getBorder(), tMargin));
+        tModel.setPreferredSize(new Dimension(70, 20));
+
+        // Botón para eliminar
+        JButton search = new JButton("Buscar");
+
+        // Acción al hacer clic en "Buscar"
+        search.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String marca = tModel.getText().trim();
+
+                // Validar que el campo no esté vacío
+                if (marca.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Debe ingresar una marca para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                try {
+                    String data = FileManager.retrieveDataByPK(marca, "marcas_vehiculos.txt");
+                    JOptionPane.showMessageDialog(null, data,
+                            "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "No se encontró el modelo.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                // Limpiar el campo de texto
+                tModel.setText("");
+            }
+        });
+
+        panel.add(title);
+        panel.add(lModel);
+        panel.add(tModel);
+        panel.add(search);
+
+        return panel;
+    }
 
 
 private void loadMarcasFromFile() {

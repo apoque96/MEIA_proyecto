@@ -47,6 +47,7 @@ public class LineMenu extends Menu {
         this.add(column_Grabar("Grabar"));
         this.add(column_Actualizar("Actualizar"));
         this.add(delete());
+        this.add(search());
     }
 
     private JPanel column_Grabar(String txt) {
@@ -150,6 +151,9 @@ public class LineMenu extends Menu {
 
                     tDescription.setText("");
                     tYear.setText("");
+                    JOptionPane.showMessageDialog(null,
+                            "Linea actualizada exitosamente.",
+                            "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -191,6 +195,9 @@ public class LineMenu extends Menu {
 
                 try {
                     FileManager.deleteFromFile("lineas.txt", marca);
+                    JOptionPane.showMessageDialog(null,
+                            "Linea eliminada exitosamente.",
+                            "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -205,10 +212,50 @@ public class LineMenu extends Menu {
         return panel;
     }
 
+    private JPanel search() {
+        Border tMargin = new EmptyBorder(30, 0, 0, 0);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel title = new JLabel("Buscar");
+        title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
+
+        JLabel lModel = new JLabel("Marca");
+        JComboBox<String> tModel = new JComboBox<>(marcasList.toArray(new String[0]));
+        lModel.setBorder(new CompoundBorder(lModel.getBorder(), tMargin));
+        tModel.setPreferredSize(new Dimension(100, 20));
+
+        JButton search = new JButton("Buscar");
+
+        // ActionListener para buscar la línea en el archivo
+        search.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String marca = (String) tModel.getSelectedItem();
+
+                try {
+                    String data = FileManager.retrieveDataByPK(marca, "lineas.txt");
+                    JOptionPane.showMessageDialog(null,
+                            data,
+                            "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        panel.add(title);
+        panel.add(lModel);
+        panel.add(tModel);
+        panel.add(search);
+
+        return panel;
+    }
+
     // Método para verificar si la marca ya está registrada
     private boolean marcaYaRegistrada(String marca) {
         try {
-            return FileManager.fileContainsPK("lineas.txt", marca);
+            return FileManager.getDataByPK(marca, "lineas.txt") != null;
         } catch (IOException ex) {
             ex.printStackTrace();
         }

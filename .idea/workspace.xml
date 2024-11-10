@@ -8,16 +8,15 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Registro_Vehiculos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Registro_Vehiculos.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Registro_Vehiculos_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Registro_Vehiculos_index.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/marcas_vehiculos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/marcas_vehiculos.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lineas_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lineas_index.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/marcas_vehiculos_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/marcas_vehiculos_index.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/Sidebar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/Sidebar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/FileManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Line.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Maintenance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Maintenance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Type.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Vehicle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/RecordInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/RecordInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/LineMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/LineMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/ModelMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/ModelMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/TypeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/TypeMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/VehicleMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/VehicleMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/mycompany/meia_proyecto/classes/FileManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/mycompany/meia_proyecto/classes/FileManagerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/types.txt" beforeDir="false" afterPath="$PROJECT_DIR$/types.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/types_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/types_index.txt" afterDir="false" />
     </list>
@@ -29,6 +28,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -56,8 +56,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Unnamed.executor": "Debug",
+    "JUnit.FileManagerTest.getDataByPK.executor": "Debug",
+    "JUnit.FileManagerTest.getIndexByPK.executor": "Debug",
+    "JUnit.FileManagerTest.updateIndexesFile.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "fase2",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "fase3",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "F:/Landivar/Semestre 4/Manejo e implementación de archivos/MEIA_proyecto",
     "node.js.detected.package.eslint": "true",
@@ -68,10 +73,66 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.mycompany.meia_proyecto.classes" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Unnamed">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mycompany.meia_proyecto.MEIA_proyecto" />
       <module name="MEIA_proyecto" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileManagerTest.getDataByPK" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MEIA_proyecto" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mycompany.meia_proyecto.classes.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.mycompany.meia_proyecto.classes" />
+      <option name="MAIN_CLASS_NAME" value="com.mycompany.meia_proyecto.classes.FileManagerTest" />
+      <option name="METHOD_NAME" value="getDataByPK" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileManagerTest.getIndexByPK" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MEIA_proyecto" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mycompany.meia_proyecto.classes.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.mycompany.meia_proyecto.classes" />
+      <option name="MAIN_CLASS_NAME" value="com.mycompany.meia_proyecto.classes.FileManagerTest" />
+      <option name="METHOD_NAME" value="getIndexByPK" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileManagerTest.updateIndexesFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MEIA_proyecto" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mycompany.meia_proyecto.classes.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.mycompany.meia_proyecto.classes" />
+      <option name="MAIN_CLASS_NAME" value="com.mycompany.meia_proyecto.classes.FileManagerTest" />
+      <option name="METHOD_NAME" value="updateIndexesFile" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -87,6 +148,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.FileManagerTest.updateIndexesFile" />
+        <item itemvalue="JUnit.FileManagerTest.getDataByPK" />
+        <item itemvalue="JUnit.FileManagerTest.getIndexByPK" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -114,7 +182,9 @@
       <workItem from="1730603174502" duration="3000" />
       <workItem from="1730607369266" duration="26000" />
       <workItem from="1730670801521" duration="1014000" />
-      <workItem from="1730731161636" duration="4361000" />
+      <workItem from="1730731161636" duration="6900000" />
+      <workItem from="1731079801425" duration="24306000" />
+      <workItem from="1731259134153" duration="10232000" />
     </task>
     <servers />
   </component>
@@ -136,9 +206,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/LineMenu.java</url>
-          <line>220</line>
-          <option name="timeStamp" value="6" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/FileManager.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
