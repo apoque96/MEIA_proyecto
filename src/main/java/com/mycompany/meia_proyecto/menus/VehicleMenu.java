@@ -145,7 +145,9 @@ public class VehicleMenu extends Menu {
                         "Vehiculo actualizado exitosamente.",
                         "Éxito", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
-                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null,
+                        "No se pudo actualizar el vehiculo",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -179,7 +181,7 @@ public class VehicleMenu extends Menu {
 
         JButton delete = new JButton("Eliminar");
         delete.addActionListener(e -> {
-            String placa = lVin.getText();
+            String placa = tVin.getText();
 
             // Leer las líneas existentes y eliminar
             try {
@@ -218,18 +220,14 @@ public class VehicleMenu extends Menu {
 
             // Leer las líneas existentes y eliminar
             try {
-                var data = FileManager.getDataByPK(vin, registroFilePath);
-                if(data != null) {
+                var data = FileManager.retrieveDataByPK(vin, registroFilePath);
                     JOptionPane.showMessageDialog(null,
                             data,
                             "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                }else{
-                    JOptionPane.showMessageDialog(null,
-                            "No se encontró el vehiculo",
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                }
             } catch (IOException ex) {
-                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null,
+                        "No se encontró el vehiculo",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 

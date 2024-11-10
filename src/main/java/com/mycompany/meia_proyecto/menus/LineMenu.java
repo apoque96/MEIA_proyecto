@@ -47,6 +47,7 @@ public class LineMenu extends Menu {
         this.add(column_Grabar("Grabar"));
         this.add(column_Actualizar("Actualizar"));
         this.add(delete());
+        this.add(search());
     }
 
     private JPanel column_Grabar(String txt) {
@@ -233,7 +234,7 @@ public class LineMenu extends Menu {
                 String marca = (String) tModel.getSelectedItem();
 
                 try {
-                    String data = FileManager.getDataByPK(marca, "lineas.txt");
+                    String data = FileManager.retrieveDataByPK(marca, "lineas.txt");
                     JOptionPane.showMessageDialog(null,
                             data,
                             "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -254,7 +255,7 @@ public class LineMenu extends Menu {
     // Método para verificar si la marca ya está registrada
     private boolean marcaYaRegistrada(String marca) {
         try {
-            return FileManager.getDataByPK("lineas.txt", marca) != null;
+            return FileManager.getDataByPK(marca, "lineas.txt") != null;
         } catch (IOException ex) {
             ex.printStackTrace();
         }

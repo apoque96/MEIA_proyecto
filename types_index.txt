@@ -1,5 +1,6 @@
-     
-
-eta,42,16
-Camión,58,13
-Hash Back,26,16
+87   
+Pick Up,0,14,25   
+Sedan,14,12,-1   
+Hash Back,26,16,6    
+Camioneta,42,16,43   
+Camion,58,13,     

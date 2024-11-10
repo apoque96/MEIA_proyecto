@@ -4,12 +4,12 @@ public class RecordInfo {
     String pk;
     long index;
     int length;
-    long indexToNext;
+    String indexToNext;
 
     RecordInfo(String pk, long index, int length) {
         this.pk = pk;
         this.index = index;
         this.length = length+2;
-        this.indexToNext = -1;  // Default to -1 (end of list)
+        this.indexToNext = "     ";  // Default to -1 (end of list)
     }
 }

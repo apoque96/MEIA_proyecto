@@ -20,9 +20,9 @@ class FileManagerTest {
 
         List<String> lines = Files.readAllLines(Paths.get(indexesPath));
 
-        Assertions.assertEquals(20, Integer.valueOf(lines.get(0).trim()));
-        Assertions.assertEquals("Honda,0,29,-1", lines.get(1));
-        Assertions.assertEquals("GMC,29,24,6", lines.get(2));
+        Assertions.assertEquals(23, Integer.valueOf(lines.get(0).trim()));
+        Assertions.assertEquals("Honda,0,29,-1", lines.get(1).trim());
+        Assertions.assertEquals("GMC,29,24,6", lines.get(2).trim());
 
         FileManager.updateIndexesFile("Registro_Vehiculos.txt");
     }

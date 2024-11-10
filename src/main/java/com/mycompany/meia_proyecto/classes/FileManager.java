@@ -31,7 +31,10 @@ public class FileManager {
     }
 
     public static void updateToFile(String path, Maintenance data) throws IOException {
-        List<String> indexData = List.of(getDataByPK(data.getPk(), path).split(","));
+        var savedData = getDataByPK(data.getPk(), path);
+        if (savedData == null)
+            throw new IOException();
+        List<String> indexData = List.of(savedData.split(","));
         int startingIndex = Integer.parseInt(indexData.get(1));
         int length = Integer.parseInt(indexData.get(2));
 
@@ -48,7 +51,10 @@ public class FileManager {
     public static void deleteFromFile(String path, String PK) throws IOException {
         String indexesPath = path.substring(0, path.length() - 4) + "_index.txt";
         List<String> lines = Files.readAllLines(Paths.get(indexesPath));
-        List<String> indexData = List.of(getDataByPK(PK, path).split(","));
+        var savedData = getDataByPK(PK, path);
+        if (savedData == null)
+            throw new IOException();
+        List<String> indexData = List.of(savedData.split(","));
         int startingIndex = Integer.parseInt(indexData.get(1));
         int length = Integer.parseInt(indexData.get(2));
 
@@ -267,42 +273,22 @@ public class FileManager {
             }
         }
 
+        // Sorted record lines
+        List<String> sortedRecordsLines = Files.readAllLines(Paths.get(path));
+        Collections.sort(sortedRecordsLines);
+
         // Open the index file and prepare to write
         try (RandomAccessFile indexFile = new RandomAccessFile(indexesPath, "rw")) {
-            // Sorted record lines
-            List<String> sortedRecordsLines = Files.readAllLines(Paths.get(path));
-            Collections.sort(sortedRecordsLines);
-
-            // Write each record's information with the linked list structure
-            RecordInfo previousRecord = null;
 
             // Reserve space for the first line (will update it after writing the records)
             indexFile.writeBytes("     \n");
-
-            int index = 6;
-            int pointer = 0;
-            // Updates the indexToNext of each index
-            for (String record : sortedRecordsLines) {
-                if (previousRecord != null) {
-                    if(!records.get(pointer).pk.equals(previousRecord.pk) && pointer==0){
-                        previousRecord.indexToNext = index;
-                        index += formatRecordLine(previousRecord).length() + 1;
-                    }else {
-                        index += formatRecordLine(previousRecord).length() + 1;
-                        previousRecord.indexToNext = index;
-                    }
-                    pointer++;
-                }
-
-                previousRecord = records.stream().filter(r -> record.contains(r.pk)).collect(Collectors.toList()).get(0);
-            }
 
             // Track the file pointer to the first record in the index file
             long firstRecordPosition = -1;
 
             // Saves to index file
             for (RecordInfo record : records) {
-                if(record.pk.equals(extractPrimaryKey(sortedRecordsLines.get(0)))) {
+                if (record.pk.equals(extractPrimaryKey(sortedRecordsLines.get(0)))) {
                     firstRecordPosition = indexFile.getFilePointer();
                 }
                 indexFile.writeBytes(formatRecordLine(record) + "\n");
@@ -312,6 +298,35 @@ public class FileManager {
             indexFile.seek(0);
             indexFile.writeBytes(String.valueOf(firstRecordPosition));
         }
+
+        String fullFile = Files.readString(Paths.get(indexesPath));
+
+        int index = 0;
+        boolean flag = false;
+        try (RandomAccessFile indexFile = new RandomAccessFile(indexesPath, "rw")) {
+            for(int i = 0; i < sortedRecordsLines.size(); i++){
+                if(index != 0){
+                    while (fullFile.charAt(index) != '\n') {
+                        index++;
+                    }
+
+                    indexFile.seek(index-5);
+                    flag = true;
+                }
+
+                index = fullFile.indexOf(extractPrimaryKey(sortedRecordsLines.get(i)));
+
+                if (flag)
+                    indexFile.writeBytes(String.valueOf(index));
+            }
+
+            while (fullFile.charAt(index) != '\n') {
+                index++;
+            }
+
+            indexFile.seek(index-5);
+            indexFile.writeBytes("-1");
+        }
     }
 
     private static String extractPrimaryKey(String line) {
@@ -320,11 +335,22 @@ public class FileManager {
 
     // Helper method to format each line for the index file
     private static String formatRecordLine(RecordInfo record) {
-        return String.format("%s,%d,%d,%d",
+        return String.format("%s,%d,%d,%s",
                 record.pk, record.index, record.length, record.indexToNext);
     }
 
-    public static String getDataByPK(String PK,  String path) throws IOException {
+    // Gets the record info given the PK
+    public static String retrieveDataByPK(String PK, String path) throws IOException {
+        String fullFile = Files.readString(Paths.get(path));
+        var data = FileManager.getDataByPK(PK, path);
+        if (data == null)
+            throw new IOException();
+        String[] splitData = data.split(",");
+
+        return fullFile.substring(Integer.valueOf(splitData[1]), Integer.valueOf(splitData[1]) + Integer.valueOf(splitData[2]));
+    }
+
+    public static String getDataByPK(String PK, String path) throws IOException {
         String indexesPath = path.substring(0, path.length() - 4) + "_index.txt";
         List<String> linesIndexes = Files.readAllLines(Paths.get(indexesPath));
         String fullFile = Files.readString(Paths.get(indexesPath));
@@ -336,10 +362,10 @@ public class FileManager {
         // pointer
         int index = Integer.valueOf(linesIndexes.get(0).trim());
 
-        while (index != -1){
+        while (index != -1) {
             String line = "";
 
-            while (fullFile.charAt(index) != '\n'){
+            while (fullFile.charAt(index) != '\n') {
                 line += fullFile.charAt(index);
                 index++;
             }
@@ -349,7 +375,7 @@ public class FileManager {
                 return line;
             }
 
-            index = Integer.valueOf(s[3]);
+            index = Integer.valueOf(s[3].trim());
         }
 
         return null;

@@ -8,15 +8,15 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Registro_Vehiculos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Registro_Vehiculos.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Registro_Vehiculos_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Registro_Vehiculos_index.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lineas_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lineas_index.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/marcas_vehiculos_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/marcas_vehiculos_index.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/MainFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/FileManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/Vehicle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/RecordInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/RecordInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/LineMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/LineMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/ModelMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/ModelMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/TypeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/TypeMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/VehicleMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/menus/VehicleMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/mycompany/meia_proyecto/classes/FileManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/mycompany/meia_proyecto/classes/FileManagerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/types.txt" beforeDir="false" afterPath="$PROJECT_DIR$/types.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/types_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/types_index.txt" afterDir="false" />
     </list>
@@ -58,11 +58,11 @@
     "Application.Unnamed.executor": "Debug",
     "JUnit.FileManagerTest.getDataByPK.executor": "Debug",
     "JUnit.FileManagerTest.getIndexByPK.executor": "Debug",
-    "JUnit.FileManagerTest.updateIndexesFile.executor": "Debug",
+    "JUnit.FileManagerTest.updateIndexesFile.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "fase2",
+    "git-widget-placeholder": "fase3",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "F:/Landivar/Semestre 4/Manejo e implementación de archivos/MEIA_proyecto",
     "node.js.detected.package.eslint": "true",
@@ -81,7 +81,7 @@
       <recent name="com.mycompany.meia_proyecto.classes" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.FileManagerTest.updateIndexesFile">
+  <component name="RunManager" selected="Application.Unnamed">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mycompany.meia_proyecto.MEIA_proyecto" />
       <module name="MEIA_proyecto" />
@@ -184,7 +184,7 @@
       <workItem from="1730670801521" duration="1014000" />
       <workItem from="1730731161636" duration="6900000" />
       <workItem from="1731079801425" duration="24306000" />
-      <workItem from="1731259134153" duration="4629000" />
+      <workItem from="1731259134153" duration="10232000" />
     </task>
     <servers />
   </component>
@@ -207,18 +207,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/FileManager.java</url>
-          <line>354</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/FileManager.java</url>
-          <line>347</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/mycompany/meia_proyecto/classes/FileManager.java</url>
-          <line>285</line>
-          <option name="timeStamp" value="19" />
+          <line>34</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

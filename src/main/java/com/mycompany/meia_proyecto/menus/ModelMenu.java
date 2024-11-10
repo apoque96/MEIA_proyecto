@@ -271,23 +271,13 @@ private JPanel delete() {
                     return;
                 }
 
-                // Verificar si la marca existe en la lista
-                if (!marcas.contains(marca)) {
-                    JOptionPane.showMessageDialog(null, "La marca no existe.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                // Eliminar la marca de la lista
-                marcas.remove(marca);
-
-                // Eliminar la marca del archivo .txt
                 try {
-                    String data = FileManager.getDataByPK(marca, "marcas_vehiculos.txt");
+                    String data = FileManager.retrieveDataByPK(marca, "marcas_vehiculos.txt");
                     JOptionPane.showMessageDialog(null, data,
                             "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Error al eliminar en el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No se encontró el modelo.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
                 // Limpiar el campo de texto
