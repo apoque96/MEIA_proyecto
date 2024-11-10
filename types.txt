@@ -1,5 +1,3 @@
-Pick Up,1920
-Sedan,1940
 Hash Back,1952
 Camioneta,1942
 Camión,1950

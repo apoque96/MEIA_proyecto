@@ -1,12 +1,14 @@
 package com.mycompany.meia_proyecto.classes;
 
 public class Vehicle extends Maintenance {
-    private final String plate;
+    private final String vin;
+    public String plate;
     public String model;
     public String type;
     public String description;
 
-    public Vehicle(String model, String type, String description, String plate) {
+    public Vehicle(String vin, String model, String type, String description, String plate) {
+        this.vin = vin;
         this.model = model;
         this.type = type;
         this.description = description;
@@ -15,7 +17,7 @@ public class Vehicle extends Maintenance {
 
     @Override
     public String getPk() {
-        return this.plate;
+        return this.vin;
     }
 
     @Override
@@ -25,6 +27,6 @@ public class Vehicle extends Maintenance {
 
     @Override
     public String toString() {
-        return plate + "," + model + "," + type + "," + description;
+        return vin + "," + plate + "," + model + "," + type + "," + description;
     }
 }

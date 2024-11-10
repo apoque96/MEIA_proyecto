@@ -114,6 +114,10 @@ public class TypeMenu extends Menu {
             if (!type.isEmpty() && !year.isEmpty() && typesList.contains(type)) {
                 try {
                     FileManager.updateToFile(filePath, object);
+                    JOptionPane.showMessageDialog(null,
+                            "Tipo actualizado exitosamente.",
+                            "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
                 } catch (IOException error) {
                     error.printStackTrace();
                 }
@@ -156,6 +160,9 @@ public class TypeMenu extends Menu {
                 typesList.remove(type);
                 try {
                     FileManager.deleteFromFile(filePath, type);
+                    JOptionPane.showMessageDialog(null,
+                            "Tipo eliminado exitosamente.",
+                            "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException error) {
                     error.printStackTrace();
                 }

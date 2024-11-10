@@ -4,12 +4,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.*;
 import java.util.ArrayList;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -35,6 +30,7 @@ public class VehicleMenu extends Menu {
         this.add(column_Grabar("Grabar"));
         this.add(column_Actualizar("Actualizar"));
         this.add(delete());
+        this.add(search());
     }
 
     private JPanel column_Grabar(String txt) {
@@ -44,6 +40,10 @@ public class VehicleMenu extends Menu {
 
         JLabel title = new JLabel(txt);
         title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
+
+        JLabel lVin = new JLabel("VIN");
+        JTextField tVin = new JTextField();
+        lVin.setBorder(new CompoundBorder(lVin.getBorder(), tMargin));
 
         JLabel lModel = new JLabel("Marca");
         JComboBox<String> tModel = new JComboBox<>(marcasList.toArray(new String[0]));
@@ -64,23 +64,27 @@ public class VehicleMenu extends Menu {
 
         JButton save = new JButton("Guardar");
         save.addActionListener(e -> {
+            String vin = tVin.getText();
             String marca = (String) tModel.getSelectedItem();
             String tipo = (String) tType.getSelectedItem();
             String descripcion = tDescription.getText();
             String placa = tPlate.getText();
-            Vehicle vehicle = new Vehicle(marca, tipo, descripcion, placa);
+            Vehicle vehicle = new Vehicle(vin, marca, tipo, descripcion, placa);
 
             try {
                 FileManager.saveToFile(registroFilePath, vehicle);
 
                 tDescription.setText("");
                 tPlate.setText("");
+                tVin.setText("");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
 
         panel.add(title);
+        panel.add(lVin);
+        panel.add(tVin);
         panel.add(lModel);
         panel.add(tModel);
         panel.add(lType);
@@ -102,6 +106,10 @@ public class VehicleMenu extends Menu {
         JLabel title = new JLabel(txt);
         title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
 
+        JLabel lVin = new JLabel("VIN");
+        JTextField tVin = new JTextField();
+        lVin.setBorder(new CompoundBorder(lVin.getBorder(), tMargin));
+
         JLabel lModel = new JLabel("Marca");
         JComboBox<String> tModel = new JComboBox<>(marcasList.toArray(new String[0]));
         lModel.setBorder(new CompoundBorder(lModel.getBorder(), tMargin));
@@ -120,11 +128,12 @@ public class VehicleMenu extends Menu {
 
         JButton update = new JButton("Actualizar");
         update.addActionListener(e -> {
+            String vin = tVin.getText();
             String marca = (String) tModel.getSelectedItem();
             String tipo = (String) tType.getSelectedItem();
             String descripcion = tDescription.getText();
             String placa = tPlate.getText();
-            Vehicle vehicle = new Vehicle(marca, tipo, descripcion, placa);
+            Vehicle vehicle = new Vehicle(vin, marca, tipo, descripcion, placa);
 
             // Leer las líneas existentes y actualizar
             try {
@@ -132,12 +141,17 @@ public class VehicleMenu extends Menu {
 
                 tDescription.setText("");
                 tPlate.setText("");
+                JOptionPane.showMessageDialog(null,
+                        "Vehiculo actualizado exitosamente.",
+                        "Éxito", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
 
         panel.add(title);
+        panel.add(lVin);
+        panel.add(tVin);
         panel.add(lModel);
         panel.add(tModel);
         panel.add(lType);
@@ -159,25 +173,69 @@ public class VehicleMenu extends Menu {
         JLabel title = new JLabel("Eliminar");
         title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
 
-        JLabel lPlate = new JLabel("Placa");
-        JTextField tPlate = new JTextField();
-        lPlate.setBorder(new CompoundBorder(lPlate.getBorder(), tMargin));
+        JLabel lVin = new JLabel("VIN");
+        JTextField tVin = new JTextField();
+        lVin.setBorder(new CompoundBorder(lVin.getBorder(), tMargin));
 
         JButton delete = new JButton("Eliminar");
         delete.addActionListener(e -> {
-            String placa = tPlate.getText();
+            String placa = lVin.getText();
 
             // Leer las líneas existentes y eliminar
             try {
                 FileManager.deleteFromFile(registroFilePath, placa);
+                JOptionPane.showMessageDialog(null,
+                        "Vehiculo eliminado exitosamente.",
+                        "Éxito", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
 
         panel.add(title);
-        panel.add(lPlate);
-        panel.add(tPlate);
+        panel.add(lVin);
+        panel.add(tVin);
+        panel.add(delete);
+
+        return panel;
+    }
+
+    private JPanel search() {
+        Border tMargin = new EmptyBorder(30, 0, 0, 0);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel title = new JLabel("Buscar");
+        title.setBorder(new CompoundBorder(title.getBorder(), tMargin));
+
+        JLabel lVin = new JLabel("VIN");
+        JTextField tVin = new JTextField();
+        lVin.setBorder(new CompoundBorder(lVin.getBorder(), tMargin));
+
+        JButton delete = new JButton("Buscar");
+        delete.addActionListener(e -> {
+            String vin = tVin.getText();
+
+            // Leer las líneas existentes y eliminar
+            try {
+                var data = FileManager.getDataByPK(vin, registroFilePath);
+                if(data != null) {
+                    JOptionPane.showMessageDialog(null,
+                            data,
+                            "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(null,
+                            "No se encontró el vehiculo",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        panel.add(title);
+        panel.add(lVin);
+        panel.add(tVin);
         panel.add(delete);
 
         return panel;

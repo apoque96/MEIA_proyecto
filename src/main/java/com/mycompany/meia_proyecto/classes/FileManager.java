@@ -3,23 +3,18 @@ package com.mycompany.meia_proyecto.classes;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.FileOutputStream;
+import java.io.*;
 
 import javax.swing.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class FileManager {
 
     public static void saveToFile(String path, Maintenance data) throws IOException {
-        if (fileContainsPK(path, data.getPk()))
+        if (getDataByPK(data.getPk(), path) != null)
             throw new IOException();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
@@ -36,9 +31,7 @@ public class FileManager {
     }
 
     public static void updateToFile(String path, Maintenance data) throws IOException {
-        String indexesPath = path.substring(0, path.length() - 4) + "_index.txt";
-        List<String> lines = Files.readAllLines(Paths.get(indexesPath));
-        List<String> indexData = List.of(lines.get(getIndexByPK(data.getPk(), lines)).split(","));
+        List<String> indexData = List.of(getDataByPK(data.getPk(), path).split(","));
         int startingIndex = Integer.parseInt(indexData.get(1));
         int length = Integer.parseInt(indexData.get(2));
 
@@ -55,8 +48,7 @@ public class FileManager {
     public static void deleteFromFile(String path, String PK) throws IOException {
         String indexesPath = path.substring(0, path.length() - 4) + "_index.txt";
         List<String> lines = Files.readAllLines(Paths.get(indexesPath));
-        int PKIndex = getIndexByPK(PK, lines);
-        List<String> indexData = List.of(lines.get(PKIndex).split(","));
+        List<String> indexData = List.of(getDataByPK(PK, path).split(","));
         int startingIndex = Integer.parseInt(indexData.get(1));
         int length = Integer.parseInt(indexData.get(2));
 
@@ -65,6 +57,14 @@ public class FileManager {
         content.replace(startingIndex, startingIndex + length, "");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
             writer.write(content.toString());
+        }
+
+        int PKIndex = 0;
+
+        for (String line : lines) {
+            if (extractPrimaryKey(line).equals(indexData.get(0)))
+                break;
+            PKIndex++;
         }
 
         lines.remove(PKIndex);
@@ -79,18 +79,7 @@ public class FileManager {
         updateIndexesFile(path);
     }
 
-    // Checks whenever the PK already exists
-    public static boolean fileContainsPK(String path, String PK) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get(path));
-        for (String line : lines) {
-            if (line.contains(PK)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static void exportToExcel(){
+    public static void exportToExcel() {
         String modelsPath = "marcas_vehiculos.txt";
         String linesPath = "lineas.txt";
         String typesPath = "types.txt";
@@ -145,9 +134,9 @@ public class FileManager {
             List<Type> RowDataTypes = new ArrayList<>();
             lines = Files.readAllLines(Paths.get(typesPath));
             for (String line : lines) {
-                try{
-                String[] data = line.split(",");
-                RowDataTypes.add(new Type(data[0], data[1]));
+                try {
+                    String[] data = line.split(",");
+                    RowDataTypes.add(new Type(data[0], data[1]));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -179,9 +168,9 @@ public class FileManager {
             List<Line> RowDataLines = new ArrayList<>();
             lines = Files.readAllLines(Paths.get(linesPath));
             for (String line : lines) {
-                try{
-                String[] data = line.split(",");
-                RowDataLines.add(new Line(data[0], data[1], data[2]));
+                try {
+                    String[] data = line.split(",");
+                    RowDataLines.add(new Line(data[0], data[1], data[2]));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -206,18 +195,19 @@ public class FileManager {
 
             // Create header row
             Row headerRowVehicles = vehiclesSheet.createRow(0);
-            headerRowVehicles.createCell(0).setCellValue("Placa");
-            headerRowVehicles.createCell(1).setCellValue("Modelo");
-            headerRowVehicles.createCell(2).setCellValue("Tipo");
-            headerRowVehicles.createCell(3).setCellValue("Descripción");
+            headerRowVehicles.createCell(0).setCellValue("Vin");
+            headerRowVehicles.createCell(1).setCellValue("Placa");
+            headerRowVehicles.createCell(2).setCellValue("Modelo");
+            headerRowVehicles.createCell(3).setCellValue("Tipo");
+            headerRowVehicles.createCell(4).setCellValue("Descripción");
 
             //Gets the data of the file
             List<Vehicle> RowDataVehicles = new ArrayList<>();
             lines = Files.readAllLines(Paths.get(vehicelsPath));
             for (String line : lines) {
-                try{
-                String[] data = line.split(",");
-                RowDataVehicles.add(new Vehicle(data[0], data[1], data[2], data[3]));
+                try {
+                    String[] data = line.split(",");
+                    RowDataVehicles.add(new Vehicle(data[0], data[1], data[2], data[3], data[4]));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -229,13 +219,14 @@ public class FileManager {
                 Row row = vehiclesSheet.createRow(rowNum++);
                 int colNum = 0;
                 row.createCell(colNum++).setCellValue(rowData.getPk());
+                row.createCell(colNum++).setCellValue(rowData.plate);
                 row.createCell(colNum++).setCellValue(rowData.model);
                 row.createCell(colNum++).setCellValue(rowData.type);
                 row.createCell(colNum).setCellValue(rowData.description);
             }
 
             // Adjust column width
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 4; i++) {
                 vehiclesSheet.autoSizeColumn(i);
             }
 
@@ -253,60 +244,114 @@ public class FileManager {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "No se pudo exportar los datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private static void updateIndexesFile(String path) throws IOException {
-        //Updates the position of each record
-        List<String> indexesLines = new ArrayList<>();
-        int fileIndex = 0;
-        List<String> lines = Files.readAllLines(Paths.get(path));
-        for (String line : lines) {
-            List<String> lineData = List.of(line.split(","));
-
-            String PK = lineData.get(0);
-            int startingPositon = fileIndex;
-            int endPostion = line.length() + 2;
-
-            indexesLines.add(PK + "," + startingPositon + "," + endPostion);
-            fileIndex = startingPositon + endPostion;
-        }
-        //Sorts alphabetically
-        Collections.sort(indexesLines);
-
-        // gets the path of the file where the indexes are being saved
+    public static void updateIndexesFile(String path) throws IOException {
         String indexesPath = path.substring(0, path.length() - 4) + "_index.txt";
-        try (BufferedWriter writerIndexes = new BufferedWriter(new FileWriter(indexesPath))) {
-            //Writes the indexes file
-            for (String line : indexesLines) {
-                writerIndexes.write(line);
-                writerIndexes.newLine();
+        List<RecordInfo> records = new ArrayList<>();
+
+        // Read the original file and gather PK, index, and length information
+        try (RandomAccessFile recordsFile = new RandomAccessFile(path, "r")) {
+            String line;
+            long index = 0;
+
+            while ((line = recordsFile.readLine()) != null) {
+                String pk = extractPrimaryKey(line);
+                int length = line.getBytes().length;
+
+                records.add(new RecordInfo(pk, index, length));
+                index = recordsFile.getFilePointer();
             }
+        }
+
+        // Open the index file and prepare to write
+        try (RandomAccessFile indexFile = new RandomAccessFile(indexesPath, "rw")) {
+            // Sorted record lines
+            List<String> sortedRecordsLines = Files.readAllLines(Paths.get(path));
+            Collections.sort(sortedRecordsLines);
+
+            // Write each record's information with the linked list structure
+            RecordInfo previousRecord = null;
+
+            // Reserve space for the first line (will update it after writing the records)
+            indexFile.writeBytes("     \n");
+
+            int index = 6;
+            int pointer = 0;
+            // Updates the indexToNext of each index
+            for (String record : sortedRecordsLines) {
+                if (previousRecord != null) {
+                    if(!records.get(pointer).pk.equals(previousRecord.pk) && pointer==0){
+                        previousRecord.indexToNext = index;
+                        index += formatRecordLine(previousRecord).length() + 1;
+                    }else {
+                        index += formatRecordLine(previousRecord).length() + 1;
+                        previousRecord.indexToNext = index;
+                    }
+                    pointer++;
+                }
+
+                previousRecord = records.stream().filter(r -> record.contains(r.pk)).collect(Collectors.toList()).get(0);
+            }
+
+            // Track the file pointer to the first record in the index file
+            long firstRecordPosition = -1;
+
+            // Saves to index file
+            for (RecordInfo record : records) {
+                if(record.pk.equals(extractPrimaryKey(sortedRecordsLines.get(0)))) {
+                    firstRecordPosition = indexFile.getFilePointer();
+                }
+                indexFile.writeBytes(formatRecordLine(record) + "\n");
+            }
+
+            // Update the first line with the position of the first record in the index file
+            indexFile.seek(0);
+            indexFile.writeBytes(String.valueOf(firstRecordPosition));
         }
     }
 
-    //Performs binary search to get the line with the specified PK
-    private static int getIndexByPK(String PK, List<String> lines) throws IOException {
-        int left = 0;
-        int right = lines.size() - 1;
+    private static String extractPrimaryKey(String line) {
+        return line.split(",")[0];
+    }
 
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            String midPK = lines.get(mid).split(",")[0].trim(); // Extract PK
+    // Helper method to format each line for the index file
+    private static String formatRecordLine(RecordInfo record) {
+        return String.format("%s,%d,%d,%d",
+                record.pk, record.index, record.length, record.indexToNext);
+    }
 
-            int comparison = midPK.compareTo(PK);
+    public static String getDataByPK(String PK,  String path) throws IOException {
+        String indexesPath = path.substring(0, path.length() - 4) + "_index.txt";
+        List<String> linesIndexes = Files.readAllLines(Paths.get(indexesPath));
+        String fullFile = Files.readString(Paths.get(indexesPath));
 
-            if (comparison == 0) {
-                return mid; // Found the target PK
-            } else if (comparison < 0) {
-                left = mid + 1; // Search the right half
-            } else {
-                right = mid - 1; // Search the left half
+
+        if (linesIndexes.size() == 0)
+            return null;
+
+        // pointer
+        int index = Integer.valueOf(linesIndexes.get(0).trim());
+
+        while (index != -1){
+            String line = "";
+
+            while (fullFile.charAt(index) != '\n'){
+                line += fullFile.charAt(index);
+                index++;
             }
+
+            String[] s = line.split(",");
+            if (s[0].equals(PK)) {
+                return line;
+            }
+
+            index = Integer.valueOf(s[3]);
         }
 
-        return -1; // PK not found
+        return null;
     }
 }

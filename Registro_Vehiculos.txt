@@ -1,2 +1,3 @@
-P039CHM,Honda,Pick Up,Hrv
-P235JPH,GMC,Camioneta,Hummer
+VIN123,P057GMF,Honda,Camioneta,rojo
+VIN456,P1456RTM,GMC,Hash Back,azul
+VIN278,P856HQR,Honda,Camión,amarrillo
