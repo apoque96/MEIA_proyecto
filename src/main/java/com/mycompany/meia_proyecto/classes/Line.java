@@ -13,7 +13,7 @@ public class Line extends Maintenance {
 
     @Override
     public String getPk() {
-        return this.model + "_" + this.description;
+        return this.model;
     }
 
     @Override

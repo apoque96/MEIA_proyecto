@@ -10,6 +10,6 @@ public class RecordInfo {
         this.pk = pk;
         this.index = index;
         this.length = length+2;
-        this.indexToNext = "     ";  // Default to -1 (end of list)
+        this.indexToNext = "     ";
     }
 }

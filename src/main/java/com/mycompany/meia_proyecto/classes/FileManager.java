@@ -259,6 +259,9 @@ public class FileManager {
         String indexesPath = path.substring(0, path.length() - 4) + "_index.txt";
         List<RecordInfo> records = new ArrayList<>();
 
+        // Clears the content of the file
+        new PrintWriter(indexesPath).close();
+
         // Read the original file and gather PK, index, and length information
         try (RandomAccessFile recordsFile = new RandomAccessFile(path, "r")) {
             String line;
@@ -300,21 +303,32 @@ public class FileManager {
         }
 
         String fullFile = Files.readString(Paths.get(indexesPath));
+        List<String> indexLines = Files.readAllLines(Paths.get(indexesPath));
+        // Removes the first line
+        indexLines.remove(0);
 
         int index = 0;
         boolean flag = false;
         try (RandomAccessFile indexFile = new RandomAccessFile(indexesPath, "rw")) {
-            for(int i = 0; i < sortedRecordsLines.size(); i++){
-                if(index != 0){
+            for (int i = 0; i < sortedRecordsLines.size(); i++) {
+                if (index != 0) {
                     while (fullFile.charAt(index) != '\n') {
                         index++;
                     }
 
-                    indexFile.seek(index-5);
+                    indexFile.seek(index - 5);
                     flag = true;
                 }
 
-                index = fullFile.indexOf(extractPrimaryKey(sortedRecordsLines.get(i)));
+                index = 5;
+                for (String line : indexLines) {
+//                    index = fullFile.indexOf(extractPrimaryKey(sortedRecordsLines.get(i)));
+                    if (extractPrimaryKey(line).equals(extractPrimaryKey(sortedRecordsLines.get(i)))) {
+                        index += 1;
+                        break;
+                    }
+                    index += line.length() + 1;
+                }
 
                 if (flag)
                     indexFile.writeBytes(String.valueOf(index));
@@ -324,7 +338,7 @@ public class FileManager {
                 index++;
             }
 
-            indexFile.seek(index-5);
+            indexFile.seek(index - 5);
             indexFile.writeBytes("-1");
         }
     }

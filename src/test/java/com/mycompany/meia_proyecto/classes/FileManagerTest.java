@@ -25,6 +25,8 @@ class FileManagerTest {
         Assertions.assertEquals("GMC,29,24,6", lines.get(2).trim());
 
         FileManager.updateIndexesFile("Registro_Vehiculos.txt");
+        FileManager.updateIndexesFile("types.txt");
+        FileManager.updateIndexesFile("lineas.txt");
     }
 
     @Test
